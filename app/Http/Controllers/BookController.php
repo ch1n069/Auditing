@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Models\Book;
 use App\Models\Audit;
-
 class BookController extends Controller
 {
     /**
@@ -92,16 +91,7 @@ class BookController extends Controller
         $data = Book::find($id);
         $data ->update($request->all());
         
-        $audit = new Audit();
-        $audit->comment = 'test';
-        $audit->new_values = $request->all();
-        $audit->old_values = $data->getOriginal();
-        $audit->event = 'updated';
-        $audit->user_id = auth()->id();
-        // $audit->comment = "this is hard coded";
-        $audit->auditable_id = $data->id;
-        $audit->auditable_type = get_class($data);
-        $audit->save();
+       
         return response()->json(['status'=>true,"message"=>"record updated successfully ", "data"=>$data], 200);
     }
 

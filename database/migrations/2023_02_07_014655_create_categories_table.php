@@ -13,9 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('audits', function (Blueprint $table) {
-            //
-            $table->text('comment')->nullable();
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('description');
+            $table->text('reason for change');
+
+
+            
+            $table->timestamps();
         });
     }
 
@@ -26,9 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('audits', function (Blueprint $table) {
-            //
-            $table->dropColumn('comment');
-        });
+        Schema::dropIfExists('categories');
     }
 };

@@ -14,11 +14,11 @@ class CreateAuditsTable extends Migration
      */
     public function up()
     {
-        Schema::connection(config('audit.drivers.database.connection', config('database.default')))->create('audits', function (Blueprint $table) {
+        Schema::connection(config('audit.drivers.database.connection', config('database.default')))->create('book_audits', function (Blueprint $table) {
         
             $morphPrefix = Config::get('audit.user.morph_prefix', 'user');
             
-            $table->bigIncrements('ProductAuditID');
+            $table->bigIncrements('id');
             $table->string($morphPrefix . '_type')->nullable();
             $table->unsignedBigInteger($morphPrefix . '_id')->nullable();
             $table->string('event');
@@ -42,6 +42,6 @@ class CreateAuditsTable extends Migration
      */
     public function down()
     {
-        Schema::connection(config('audit.drivers.database.connection', config('database.default')))->drop('audits');
+        Schema::connection(config('audit.drivers.database.connection', config('database.default')))->drop('book_audits');
     }
 }
